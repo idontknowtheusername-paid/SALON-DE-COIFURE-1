@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Atelier Coiffure - Salon de Coiffure Professionnel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: #D4AF37;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #D4AF37;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #D4AF37;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #C09B30;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1200/600') center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            color: #fff;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: #333;
+        }
+        
+        .section-title p {
+            color: #666;
+            font-size: 18px;
+        }
+        
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .service-card {
+            background-color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-img {
+            height: 200px;
+            background: #eee;
+        }
+        
+        .service-content {
+            padding: 20px;
+        }
+        
+        .service-content h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        
+        .price {
+            color: #D4AF37;
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        
+        .team {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-member {
+            text-align: center;
+        }
+        
+        .team-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: #eee;
+        }
+        
+        .team-member h3 {
+            margin-bottom: 5px;
+            font-size: 20px;
+        }
+        
+        .team-member p {
+            color: #666;
+        }
+        
+        .testimonials {
+            background-color: #f9f9f9;
+        }
+        
+        .testimonial-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .testimonial {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .testimonial p {
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            background: #eee;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .contact-card {
+            text-align: center;
+            padding: 30px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-card i {
+            font-size: 40px;
+            color: #D4AF37;
+            margin-bottom: 20px;
+        }
+        
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: #D4AF37;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 20px;
+            font-size: 14px;
+        }
+        
+        .social-icons {
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links li {
+                margin: 10px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">L'Atelier <span>Coiffure</span></a>
+                <ul class="nav-links">
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#equipe">Notre Équipe</a></li>
+                    <li><a href="#temoignages">Témoignages</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#" class="btn">Prendre RDV</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="accueil" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Découvrez l'art de la coiffure</h1>
+                <p>Un espace où style et expertise se rencontrent pour sublimer votre beauté naturelle</p>
+                <a href="#" class="btn">Nos Services</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nos Services</h2>
+                <p>Découvrez notre large gamme de prestations pour femmes et hommes</p>
+            </div>
+            <div class="services">
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="/api/placeholder/400/200" alt="Coupe Femme">
+                    </div>
+                    <div class="service-content">
+                        <h3>Coupe Femme</h3>
+                        <p>Une coupe personnalisée selon la morphologie de votre visage et la texture de vos cheveux.</p>
+                        <div class="price">À partir de 45€</div>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="/api/placeholder/400/200" alt="Coupe Homme">
+                    </div>
+                    <div class="service-content">
+                        <h3>Coupe Homme</h3>
+                        <p>Coupes tendance ou classiques réalisées avec précision par nos experts.</p>
+                        <div class="price">À partir de 25€</div>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="/api/placeholder/400/200" alt="Coloration">
+                    </div>
+                    <div class="service-content">
+                        <h3>Coloration</h3>
+                        <p>Des colorations personnalisées pour rehausser votre teint et sublimer vos traits.</p>
+                        <div class="price">À partir de 65€</div>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="/api/placeholder/400/200" alt="Balayage">
+                    </div>
+                    <div class="service-content">
+                        <h3>Balayage</h3>
+                        <p>Un effet naturel et lumineux pour donner du relief à votre chevelure.</p>
+                        <div class="price">À partir de 85€</div>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="/api/placeholder/400/200" alt="Coiffure de mariage">
+                    </div>
+                    <div class="service-content">
+                        <h3>Coiffure de Mariage</h3>
+                        <p>Des créations uniques pour sublimer votre look lors des occasions spéciales.</p>
+                        <div class="price">À partir de 120€</div>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="/api/placeholder/400/200" alt="Soin du cheveu">
+                    </div>
+                    <div class="service-content">
+                        <h3>Soins Capillaires</h3>
+                        <p>Traitements profonds pour réparer et nourrir tous types de cheveux.</p>
+                        <div class="price">À partir de 35€</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="equipe" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Notre Équipe</h2>
+                <p>Des professionnels passionnés à votre service</p>
+            </div>
+            <div class="team">
+                <div class="team-member">
+                    <div class="team-img">
+                        <img src="/api/placeholder/200/200" alt="Sophie Martin">
+                    </div>
+                    <h3>Sophie Martin</h3>
+                    <p>Directrice & Styliste Senior</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-img">
+                        <img src="/api/placeholder/200/200" alt="Thomas Dubois">
+                    </div>
+                    <h3>Thomas Dubois</h3>
+                    <p>Coloriste Expert</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-img">
+                        <img src="/api/placeholder/200/200" alt="Julie Moreau">
+                    </div>
+                    <h3>Julie Moreau</h3>
+                    <p>Styliste & Spécialiste Mariage</p>
+                </div>
+                <div class="team-member">
+                    <div class="team-img">
+                        <img src="/api/placeholder/200/200" alt="Laurent Bernard">
+                    </div>
+                    <h3>Laurent Bernard</h3>
+                    <p>Barbier & Coiffeur Hommes</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="temoignages" class="section testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Témoignages Clients</h2>
+                <p>Ce que nos clients disent de nous</p>
+            </div>
+            <div class="testimonial-container">
+                <div class="testimonial">
+                    <p>"Une expérience exceptionnelle ! Sophie a parfaitement compris ce que je voulais et a su adapter la coupe à la forme de mon visage. Je suis ravie du résultat !"</p>
+                    <div class="testimonial-author">
+                        <img src="/api/placeholder/50/50" alt="Émilie">
+                        <div>
+                            <h4>Émilie D.</h4>
+                            <p>Cliente depuis 2 ans</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <p>"Je cherchais depuis longtemps un salon où l'on prend le temps de m'écouter. L'équipe est non seulement talentueuse mais aussi très attentionnée. Je recommande vivement !"</p>
+                    <div class="testimonial-author">
+                        <img src="/api/placeholder/50/50" alt="Marc">
+                        <div>
+                            <h4>Marc T.</h4>
+                            <p>Client depuis 1 an</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <p>"Ma coloration est parfaite ! Thomas a su me conseiller et choisir une nuance qui met en valeur mon teint. L'ambiance du salon est vraiment agréable."</p>
+                    <div class="testimonial-author">
+                        <img src="/api/placeholder/50/50" alt="Nathalie">
+                        <div>
+                            <h4>Nathalie L.</h4>
+                            <p>Cliente depuis 3 ans</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nous Contacter</h2>
+                <p>Pour prendre rendez-vous ou obtenir plus d'informations</p>
+            </div>
+            <div class="contact-info">
+                <div class="contact-card">
+                    <i>📍</i>
+                    <h3>Adresse</h3>
+                    <p>15 Rue des Fleurs<br>75008 Paris</p>
+                </div>
+                <div class="contact-card">
+                    <i>📞</i>
+                    <h3>Téléphone</h3>
+                    <p>01 23 45 67 89</p>
+                </div>
+                <div class="contact-card">
+                    <i>📧</i>
+                    <h3>Email</h3>
+                    <p>contact@ateliercoiffure.fr</p>
+                </div>
+                <div class="contact-card">
+                    <i>🕒</i>
+                    <h3>Horaires</h3>
+                    <p>Lun-Sam: 9h-19h<br>Dim: Fermé</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>L'Atelier Coiffure</h3>
+                    <p>Votre salon de coiffure professionnel au cœur de Paris. Un espace dédié à votre beauté et votre bien-être.</p>
+                    <div class="social-icons">
+                        <a href="#">FB</a>
+                        <a href="#">IG</a>
+                        <a href="#">TW</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Liens Rapides</h3>
+                    <ul>
+                        <li><a href="#accueil">Accueil</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#equipe">Notre Équipe</a></li>
+                        <li><a href="#temoignages">Témoignages</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Nos Services</h3>
+                    <ul>
+                        <li><a href="#">Coupe Femme</a></li>
+                        <li><a href="#">Coupe Homme</a></li>
+                        <li><a href="#">Coloration</a></li>
+                        <li><a href="#">Balayage</a></li>
+                        <li><a href="#">Coiffure de Mariage</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Nous Contacter</h3>
+                    <ul>
+                        <li>15 Rue des Fleurs, 75008 Paris</li>
+                        <li>01 23 45 67 89</li>
+                        <li>contact@ateliercoiffure.fr</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 L'Atelier Coiffure. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
