@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barber shop - Salon de Coiffure Professionnel</title>
+    <!-- Ajout du script Calendly dans le head -->
+    <script src="https://assets.calendly.com/assets/external/widget.js"></script>
     <style>
         * {
             margin: 0;
@@ -52,6 +54,7 @@
         .nav-links {
             display: flex;
             list-style: none;
+            align-items: center; /* Alignement vertical pour harmoniser avec le bouton */
         }
         
         .nav-links li {
@@ -78,10 +81,20 @@
             text-decoration: none;
             font-weight: 500;
             transition: background-color 0.3s;
+            border: none; /* Ajout pour le bouton */
+            cursor: pointer; /* Ajout pour le bouton */
         }
         
         .btn:hover {
             background-color: #C09B30;
+        }
+        
+        /* Style pour l'indicateur de chargement */
+        .loading {
+            display: none;
+            color: #D4AF37;
+            font-size: 14px;
+            margin-left: 10px;
         }
         
         .hero {
@@ -344,7 +357,10 @@
                     <li><a href="#equipe">Notre Équipe</a></li>
                     <li><a href="#temoignages">Témoignages</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li><a href="https://calendly.com/bienvenu082003/30min" class="btn">Prendre RDV</a></li>
+                    <li>
+                        <button id="rdv-btn" class="btn">Prendre RDV</button>
+                        <span id="loading" class="loading">Chargement...</span>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -584,9 +600,27 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Beyond Logic. Tous droits réservés.</p>
+                <p>© 2025 Beyond Logic. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
+
+    <!-- JavaScript pour le popup Calendly -->
+    <script>
+        document.getElementById('rdv-btn').addEventListener('click', function () {
+            // Afficher l'indicateur de chargement
+            document.getElementById('loading').style.display = 'inline';
+            
+            // Ouvrir le popup Calendly
+            Calendly.initPopupWidget({
+                url: 'https://calendly.com/bienvenu082003/30min'
+            });
+            
+            // Cacher l'indicateur après 2 secondes
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+            }, 2000);
+        });
+    </script>
 </body>
 </html>
