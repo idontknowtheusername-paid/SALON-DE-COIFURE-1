@@ -78,6 +78,7 @@
             text-decoration: none;
             font-weight: 500;
             transition: background-color 0.3s;
+            cursor: pointer;
         }
         
         .btn:hover {
@@ -308,6 +309,80 @@
             font-size: 20px;
         }
         
+        /* Styles pour le modal de réservation */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from {opacity: 0}
+            to {opacity: 1}
+        }
+        
+        .modal-content {
+            position: relative;
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 0;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.4s;
+        }
+        
+        @keyframes slideIn {
+            from {transform: translateY(-50px); opacity: 0;}
+            to {transform: translateY(0); opacity: 1;}
+        }
+        
+        .close-modal {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            z-index: 2001;
+        }
+        
+        .close-modal:hover {
+            color: #D4AF37;
+        }
+        
+        .modal-header {
+            padding: 15px;
+            background-color: #f8f8f8;
+            border-bottom: 1px solid #eee;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+            color: #333;
+        }
+        
+        .modal-body {
+            padding: 0;
+            height: 650px;
+        }
+        
+        .calendly-inline-widget {
+            min-width: 320px;
+            height: 650px;
+        }
+        
+        /* Media Queries pour le responsive */
         @media (max-width: 768px) {
             .navbar {
                 flex-direction: column;
@@ -330,6 +405,19 @@
             .hero p {
                 font-size: 18px;
             }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+            
+            .modal-body {
+                height: 550px;
+            }
+            
+            .calendly-inline-widget {
+                height: 550px;
+            }
         }
     </style>
 </head>
@@ -344,7 +432,7 @@
                     <li><a href="#equipe">Notre Équipe</a></li>
                     <li><a href="#temoignages">Témoignages</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li><a href="https://calendly.com/bienvenu082003/30min" class="btn">Prendre RDV</a></li>
+                    <li><a href="#" class="btn" id="openBooking">Prendre RDV</a></li>
                 </ul>
             </nav>
         </div>
@@ -355,7 +443,7 @@
             <div class="hero-content">
                 <h1>Découvrez l'art de la coiffure</h1>
                 <p>Un espace où style et expertise se rencontrent pour sublimer votre beauté naturelle</p>
-                <a href="#" class="btn">Nos Services</a>
+                <a href="#services" class="btn">Nos Services</a>
             </div>
         </div>
     </section>
@@ -588,5 +676,76 @@
             </div>
         </div>
     </footer>
+
+    <!-- Modal de réservation -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h3>Prendre Rendez-vous</h3>
+            </div>
+            <div class="modal-body">
+                <!-- Intégration Calendly -->
+                <div class="calendly-inline-widget" data-url="https://calendly.com/bienvenu082003/30min?hide_gdpr_banner=1"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script pour charger Calendly -->
+    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+    
+    <!-- Script pour gérer l'ouverture du modal ou nouvelle fenêtre -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Éléments DOM
+            const openBookingBtn = document.getElementById('openBooking');
+            const bookingModal = document.getElementById('bookingModal');
+            const closeModal = document.querySelector('.close-modal');
+            const preferPopup = true; // Mettre à false pour ouvrir dans une nouvelle fenêtre
+            
+            // Fonction pour ouvrir le modal
+            function openModal() {
+                bookingModal.style.display = 'block';
+                document.body.style.overflow = 'hidden'; // Empêche le défilement de la page en arrière-plan
+            }
+            
+            // Fonction pour fermer le modal
+            function closeModalFunc() {
+                bookingModal.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Réactive le défilement
+            }
+            
+            // Ouvrir dans une nouvelle fenêtre
+            function openNewWindow() {
+                window.open('https://calendly.com/bienvenu082003/30min', '_blank', 'width=1000,height=700');
+            }
+            
+            // Gestionnaires d'événements
+            openBookingBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (preferPopup) {
+                    openModal();
+                } else {
+                    openNewWindow();
+                }
+            });
+            
+            closeModal.addEventListener('click', closeModalFunc);
+            
+            // Fermer le modal si on clique en dehors du contenu
+            window.addEventListener('click', function(e) {
+                if (e.target === bookingModal) {
+                    closeModalFunc();
+                }
+            });
+            
+            // Fermer avec la touche Échap
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && bookingModal.style.display === 'block') {
+                    closeModalFunc();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
