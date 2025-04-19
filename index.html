@@ -52,7 +52,6 @@
         .nav-links {
             display: flex;
             list-style: none;
-            align-items: center;
         }
         
         .nav-links li {
@@ -79,8 +78,6 @@
             text-decoration: none;
             font-weight: 500;
             transition: background-color 0.3s;
-            border: none;
-            cursor: pointer;
         }
         
         .btn:hover {
@@ -327,7 +324,7 @@
             }
             
             .hero h1 {
-                font \: 36px;
+                font-size: 36px;
             }
             
             .hero p {
@@ -347,9 +344,7 @@
                     <li><a href="#equipe">Notre Équipe</a></li>
                     <li><a href="#temoignages">Témoignages</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li>
-                        <button id="rdv-btn" class="btn">Prendre RDV</button>
-                    </li>
+                    <li><a href="https://calendly.com/bienvenu082003/30min" class="btn">Prendre RDV</a></li>
                 </ul>
             </nav>
         </div>
@@ -568,7 +563,7 @@
                         <li><a href="#temoignages">Témoignages</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
-                </div |}|
+                </div>
                 <div class="footer-section">
                     <h3>Nos Services</h3>
                     <ul>
@@ -589,40 +584,9 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2025 Beyond Logic. Tous droits réservés.</p>
+                <p>&copy; 2025 Beyond Logic. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
-
-    <!-- Script Calendly et JavaScript -->
-    <script async src="https://assets.calendly.com/assets/external/widget.js" id="calendly-script"></script>
-    <script>
-        // Fonction pour ouvrir le popup ou rediriger
-        function openCalendly() {
-            if (typeof Calendly !== 'undefined') {
-                Calendly.initPopupWidget({
-                    url: 'https://calendly.com/bienvenu082003/30min'
-                });
-            } else {
-                console.error('Calendly non chargé. Redirection vers le lien.');
-                alert('Impossible de charger le module de prise de rendez-vous. Vous allez être redirigé vers Calendly.');
-                window.location.href = 'https://calendly.com/bienvenu082003/30min';
-            }
-        }
-
-        // Attendre que le script Calendly soit chargé
-        document.getElementById('calendly-script').addEventListener('load', function() {
-            document.getElementById('rdv-btn').addEventListener('click', openCalendly);
-        });
-
-        // Gestion des erreurs si le script ne se charge pas
-        document.getElementById('calendly-script').addEventListener('error', function() {
-            console.error('Erreur de chargement du script Calendly.');
-            document.getElementById('rdv-btn').addEventListener('click', function() {
-                alert('Impossible de charger le module de prise de rendez-vous. Vous allez être redirigé vers Calendly.');
-                window.location.href = 'https://calendly.com/bienvenu082003/30min';
-            });
-        });
-    </script>
 </body>
 </html>
