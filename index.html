@@ -86,18 +86,58 @@
             background-color: #C09B30;
         }
         
+        /* ----------------------------------- */
+        /* DÉBUT DES MODIFICATIONS DE LA SECTION HERO */
+        /* ----------------------------------- */
+        
+        /* Nouveaux styles pour la section hero avec image HTML au lieu de background */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/banniere_hero2.jpg') center/cover;
+            position: relative;
             height: 100vh;
             display: flex;
             align-items: center;
             color: #fff;
             text-align: center;
+            overflow: hidden;
         }
+        
+        /* Conteneur pour l'image héro et son overlay */
+        .hero-image-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        /* Styles pour l'image elle-même */
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Garantit que l'image couvre tout l'espace sans déformation */
+            object-position: center; /* Centre l'image */
+        }
+        
+        /* L'overlay sombre par-dessus l'image (remplace le gradient linéaire) */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Assombrit l'image pour le contraste avec le texte */
+        }
+        
+        /* ----------------------------------- */
+        /* FIN DES MODIFICATIONS DE LA SECTION HERO */
+        /* ----------------------------------- */
         
         .hero-content {
             max-width: 800px;
             margin: 0 auto;
+            position: relative; /* Pour s'assurer que le contenu est au-dessus de l'overlay */
+            z-index: 5; /* Valeur supérieure à celle de l'image et de l'overlay */
         }
         
         .hero h1 {
@@ -835,8 +875,16 @@
         </div>
     </header>
 
+    <!-- SECTION HERO MODIFIÉE - Utilisation d'une image HTML au lieu d'un background CSS -->
     <section id="accueil" class="hero">
-        <div class="parallax-bg"></div>
+        <!-- Nouveau conteneur pour l'image et l'overlay -->
+        <div class="hero-image-container">
+            <!-- L'image de la bannière en tant qu'élément HTML -->
+            <img src="images/banniere_hero2.jpg" alt="Outils de coiffure" class="hero-image">
+            <!-- Overlay pour assombrir l'image et améliorer la lisibilité du texte -->
+            <div class="overlay"></div>
+        </div>
+        <!-- Le contenu de la section hero reste le même -->
         <div class="container">
             <div class="hero-content">
                 <h1 class="fade-up">Découvrez l'art de la coiffure</h1>
