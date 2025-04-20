@@ -8,7 +8,7 @@ app = Flask(__name__)
 TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
 TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
 TWILIO_PHONE_NUMBER = os.getenv("TWILIO_PHONE_NUMBER")
-ADMIN_PHONE_NUMBER = os.getenv("ADMIN_PHONE_NUMBER") 
+ADMIN_PHONE_NUMBER = os.getenv("ADMIN_PHONE_NUMBER")
 
 if not all([TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_PHONE_NUMBER, ADMIN_PHONE_NUMBER]):
     raise ValueError("Les variables d'environnement de Twilio sont manquantes !")
@@ -20,8 +20,23 @@ def calendly_webhook():
     try:
         # Récupère les données JSON envoyées par Calendly
         data = request.json
-        print("Data received:", data)  # Affiche les données pour vérifier
+        print("Données reçues : ", data)  # Affiche les données pour vérifier
 
+        # Vérifie si les clés nécessaires sont présentes dans les données
+        if 'payload' not in data:
+            raise ValueError("Données de payload manquantes")
+        if 'invitee' not in data['payload']:
+            raise ValueError("Données de l'invité manquantes")
+        if 'name' not in data['payload']['invitee']:
+            raise ValueError("Nom de l'invité manquant")
+        if 'sms' not in data['payload']['invitee']:
+            raise ValueError("Numéro de téléphone de l'invité manquant")
+        if 'event' not in data['payload']:
+            raise ValueError("Données de l'événement manquantes")
+        if 'start_time' not in data['payload']['event']:
+            raise ValueError("Heure de début de l'événement manquante")
+
+        # Extraire les informations nécessaires
         invitee_name = data['payload']['invitee']['name']
         invitee_phone = data['payload']['invitee']['sms']  # Utilise sms au lieu d'email
         event_time = data['payload']['event']['start_time']
@@ -42,9 +57,12 @@ def calendly_webhook():
 
         return jsonify({"success": True}), 200
 
+    except ValueError as e:
+        print(f"Erreur de validation des données : {e}")
+        return jsonify({"error": str(e)}), 400
     except Exception as e:
-        print("Erreur:", e)
-        return jsonify({"error": str(e)}), 500
+        print(f"Erreur inattendue : {e}")
+        return jsonify({"error": "Une erreur interne s'est produite"}), 500
 
 
 if __name__ == '__main__':
