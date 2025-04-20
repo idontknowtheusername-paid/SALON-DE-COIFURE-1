@@ -1,0 +1,12 @@
+{
+  "name": "webhook-rdv",
+  "version": "1.0.0",
+  "description": "Webhook pour recevoir les événements Calendly",
+  "main": "webhook.js",
+  "scripts": {
+    "start": "node webhook.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
