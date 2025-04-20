@@ -1,8 +1,11 @@
 from flask import Flask, request, jsonify
 from twilio.rest import Client
 import os
+import logging
 
+# Configure le logger Flask pour afficher des logs détaillés
 app = Flask(__name__)
+app.logger.setLevel(logging.DEBUG)
 
 # Vérifie si les variables d'environnement sont bien définies
 TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
@@ -17,6 +20,7 @@ client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
 @app.route('/webhook', methods=['POST'])
 def calendly_webhook():
+    print("Requête reçue")  # Confirmer si la requête atteint le serveur
     try:
         # Récupère les données JSON envoyées par Calendly
         data = request.json
@@ -71,4 +75,5 @@ def calendly_webhook():
 
 
 if __name__ == '__main__':
+    # Lancer le serveur Flask
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=True)
