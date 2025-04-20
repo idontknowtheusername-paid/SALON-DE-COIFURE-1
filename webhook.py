@@ -41,6 +41,11 @@ def calendly_webhook():
         invitee_phone = data['payload']['invitee']['sms']  # Utilise sms au lieu d'email
         event_time = data['payload']['event']['start_time']
 
+        # Affiche les informations extraites pour vérifier
+        print(f"Nom de l'invité : {invitee_name}")
+        print(f"Téléphone de l'invité : {invitee_phone}")
+        print(f"Heure de l'événement : {event_time}")
+
         # Envoi du SMS au client
         client.messages.create(
             body=f"Bonjour {invitee_name}, votre rendez-vous est bien confirmé pour le {event_time}. Merci !",
