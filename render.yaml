@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: webhook-rdv
+    env: python
+    buildCommand: ""
+    startCommand: python webhook.py
+    plan: free
+    autoDeploy: true
