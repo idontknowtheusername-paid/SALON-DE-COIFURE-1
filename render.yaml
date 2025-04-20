@@ -1,6 +1,16 @@
 services:
   - type: web
-    name: webhook-service
+    name: webhook-rdv
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn -b 0.0.0.0:$PORT webhook:app
+    startCommand: gunicorn webhook:app
+    plan: free
+    envVars:
+      - key: TWILIO_ACCOUNT_SID
+        fromEnvVar: TWILIO_ACCOUNT_SID
+      - key: TWILIO_AUTH_TOKEN
+        fromEnvVar: TWILIO_AUTH_TOKEN
+      - key: TWILIO_PHONE_NUMBER
+        fromEnvVar: TWILIO_PHONE_NUMBER
+      - key: ADMIN_PHONE_NUMBER
+        fromEnvVar: ADMIN_PHONE_NUMBER
