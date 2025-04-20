@@ -1,8 +1,6 @@
 services:
   - type: web
-    name: webhook-rdv
+    name: webhook-service
     env: python
-    buildCommand: ""
-    startCommand: python webhook.py
-    plan: free
-    autoDeploy: true
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn -b 0.0.0.0:$PORT webhook:app
