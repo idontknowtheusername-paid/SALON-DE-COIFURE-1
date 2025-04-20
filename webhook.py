@@ -68,10 +68,10 @@ def calendly_webhook():
 
     except ValueError as e:
         print(f"Erreur de validation des données : {e}")
-        return jsonify({"error": str(e)}), 400
+        return jsonify({"error": f"Erreur de validation des données: {e}"}), 400
     except Exception as e:
         print(f"Erreur inattendue : {e}")
-        return jsonify({"error": "Une erreur interne s'est produite"}), 500
+        return jsonify({"error": f"Une erreur interne s'est produite : {e}"}), 500
 
 
 if __name__ == '__main__':
